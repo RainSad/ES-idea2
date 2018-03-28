@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var ws;
+    window.onload = connect;
+
+    function connect() {
+        var ws;
+        if ('WebSocket' in window) {
+            ws = new WebSocket("ws://localhost:8080/ES/webSocketServer/chat");
+        }
+        ws.onopen = function (evnt) {
+
+        };
+        ws.onmessage = function (evnt) {
+            eval("var dataObj=" + event.data);
+            if (dataObj != undefined) {
+                alert(dataObj);
+            }
+        };
+        ws.onerror = function (evnt) {
+        };
+        ws.onclose = function (evnt) {
+        }
+    }
+
+    function send() {
+        ws.send("ssssssssss");
+    }
+</script>
+</body>
+</html>

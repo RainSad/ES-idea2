@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- springmvc 扫包 @controler @service 因为springmvc扫包会自动覆盖spring的bean文件，所咦要配置只扫contoler -->
+    <context:component-scan base-package="com.sys" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+    <mvc:interceptors>
+        <bean class="com.core.common.webUtils.HttpInterceptor"/>
+    </mvc:interceptors>
+
+    <!-- dispathcer拦截使用 / 或者/* 或者 使用@configration配置后请求的url地址会自动拼接项目名，加上下面两个配置后解决问题 -->
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+
+    <!-- spring bean工具类，项目启动就要加载，不允许懒加载 -->
+    <bean class="com.core.common.webUtils.ApplicationContextHelper" lazy-init="false"/>
+
+    <!-- 使用该类处理请求 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+
+    <!-- 使用该类处理请求的返回，如json返回和html返回 json返回使用MappingJackson2JsonView返回 html使用InternalResourceViewResolver返回 -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+
+    <!-- freemarker配置，是因为项目需要部分jsp文件才导入的freemarker解析器,项目大部分都是html文件 -->
+    <bean id="freemarkerConfigurer"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/view/"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">0</prop>
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--json视图返回-->
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+    <!--&lt;!&ndash; html视图返回 &ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"></property>-->
+    <!--<property name="prefix" value="/WEB-INF/view/"/>-->
+    <!--<property name="suffix" value=".html"></property>-->
+    <!--<property name="order" value="1"></property>-->
+    <!--</bean>-->
+    <!-- html视图返回 -->
+    <bean id="ViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="false"/>
+        <property name="suffix" value=".html"/>
+        <property name="contentType" value="text/html;charset=UTF-8"></property>
+    </bean>
+
+    <!--异常处理的类-->
+    <bean class="com.core.common.exception.SpringExceptionResolver"/>
+
+	<!-- 配置spring和springmvc的aop日志打印拦截，因为spring和springmvc分属两个不同额ioc容器，所以需要分别配置 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+
+    <!-- spring mvc也需要读取部分配置文件，也就是spring和springmvc一共存在两份配置文件 -->
+	<bean id="workDirProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- 文件存储地址配置 -->
+				<value>classpath:properties/workDir.properties</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

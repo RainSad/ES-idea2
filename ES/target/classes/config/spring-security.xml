@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <!--&lt;!&ndash; 方法权限注释支持 &ndash;&gt;
+    <global-method-security pre-post-annotations="enabled" />
+
+    &lt;!&ndash; 验证业务系统用户(登录用户验证) &ndash;&gt;
+    <b:bean id="esloginFilter"
+        class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <b:property name="authenticationManager" ref="authenticationManager" />
+        <b:property name="authenticationFailureHandler" ref="esfailureHandler" />
+        <b:property name="authenticationSuccessHandler" ref="essuccessHandler" />
+        <b:property name="filterProcessesUrl" value="login/j_spring_security_check" />
+    </b:bean>
+
+    <b:bean id="esfailureHandler"
+        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <b:property name="defaultFailureUrl" value="/login?error=true" />
+    </b:bean>
+    <b:bean id="essuccessHandler"
+        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <b:property name="alwaysUseDefaultTargetUrl" value="true" />
+        <b:property name="defaultTargetUrl" value="/index?success=true" />
+    </b:bean>
+    &lt;!&ndash; 得到请求时先通过它 &ndash;&gt;
+    <b:bean id="loginUrlEntryPoint" class="com.core.security.LoginUrlEntryPoint" />
+    &lt;!&ndash; 登陆用户名密码验证类 &ndash;&gt;
+    <b:bean id="myUserDetailsService" class="com.core.security.MyUserDetailsService" />
+
+    <authentication-manager alias="authenticationManager">
+        &lt;!&ndash; 权限控制 引用 id是myUserDetailsService的server &ndash;&gt;
+        <authentication-provider user-service-ref="myUserDetailsService" />
+    </authentication-manager>
+
+
+    &lt;!&ndash; 首页和登陆不拦截 &ndash;&gt;
+    &lt;!&ndash; <http pattern="/" security="none" /> &ndash;&gt;
+    &lt;!&ndash; <http pattern="/index" security="none" /> &ndash;&gt;
+    <http pattern="/login" security="none" />
+    &lt;!&ndash; <http pattern="/login" security="none" /> &ndash;&gt;
+
+    &lt;!&ndash; 静态资源不进行过滤 &ndash;&gt;
+    <http pattern="/res/commom/**" security="none" />
+    <http pattern="/res/css/**" security="none" />
+    <http pattern="/res/js/**" security="none" />
+    <http pattern="/res/image/**" security="none" />
+    &lt;!&ndash; 配置拦截页面 &ndash;&gt;
+    &lt;!&ndash; 启用页面级权限控制 使用表达式 &ndash;&gt;
+    <http entry-point-ref="loginUrlEntryPoint" use-expressions="true">
+
+        <access-denied-handler error-page="/403.html" />
+        &lt;!&ndash; 设置用户默认登录页面 &ndash;&gt;
+        &lt;!&ndash; <form-login login-page="/index/login.html" /> &ndash;&gt;
+        <custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="mySecurityFilter" />
+        &lt;!&ndash; 登录过滤器 &ndash;&gt;
+        <custom-filter position="FORM_LOGIN_FILTER" ref="esloginFilter" />
+        <csrf disabled="true" />
+    </http>
+
+    &lt;!&ndash; 当基于方法权限控制的时候仅仅须要此配置，在接口上加上权限就可以控制方法的调用 <authentication-manager> <authentication-provider
+        user-service-ref="myUserDetailsService"/> </authentication-manager> &ndash;&gt;
+
+    &lt;!&ndash; 资源权限控制 &ndash;&gt;
+    <b:bean id="mySecurityFilter"
+        class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        &lt;!&ndash; 用户拥有的权限 &ndash;&gt;
+        <b:property name="authenticationManager" ref="authenticationManager" />
+        &lt;!&ndash; 用户是否拥有所请求资源的权限自定义的权限加载类/spring自带的权限加载类，现使用自带的加载类 &ndash;&gt;
+        &lt;!&ndash;<b:property name="accessDecisionManager" ref="myAccessDecisionManager" />&ndash;&gt;
+        <b:property name="accessDecisionManager">
+            <b:bean class="org.springframework.security.access.vote.AffirmativeBased">
+                <b:constructor-arg>
+                    <b:list>
+                        <b:bean class="org.springframework.security.access.vote.RoleVoter" />
+                    </b:list>
+                </b:constructor-arg>
+            </b:bean>
+        </b:property>
+        &lt;!&ndash; 资源与权限相应关系 &ndash;&gt;
+        <b:property name="securityMetadataSource" ref="mySecurityMetadataSource" />
+    </b:bean>-->
+
+
+
+
+</b:beans>

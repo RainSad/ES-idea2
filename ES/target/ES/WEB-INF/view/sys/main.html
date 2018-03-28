@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="后台管理主页面">
+    <meta name="keywords" content="后台 sys 系统管理">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>后台管理主页面</title>
+    <script src="res/commom/easyui/plugins/jquery-3.2.1.min.js"></script>
+    <script src="res/commom/bootstrap3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="res/css/sys/common.css"/>
+    <link rel="stylesheet" type="text/css" href="res/commom/bootstrap3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="res/commom/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="res/commom/bootstrap3.3.7/js/bootstrap-table.min.css">
+    <link rel="stylesheet" href="res/commom/bootstrap3.3.7/css/bootstrap-select.min.css">
+</head>
+<body>
+<div id="wrap">
+    <!-- 左侧菜单栏目块 -->
+    <div class="leftMeun" id="leftMeun">
+        <div id="logoDiv">
+            <p id="logoP"><span>后台管理页面</span></p>
+        </div>
+        <div id="personInfor">
+            <p id="userName">孙文祥</p>
+            <p><span>sunwx</span> <a href="" target="_blank">YourView</a></p>
+            <p>
+                <a>退出登录</a>
+            </p>
+        </div>
+        <div class="meun-title">权限管理</div>
+        <div class="meun-item meun-item-active" href="#user" aria-controls="sour" role="tab" data-toggle="tab"><i class="fa fa-user-o"></i></i>&nbsp;用户管理</div>
+        <div class="meun-item" href="#dept" aria-controls="dept" role="tab" data-toggle="tab"><i class="fa fa-newspaper-o"></i>&nbsp;部门管理</div>
+    </div>
+    <!-- 右侧具体内容栏目 -->
+    <div id="rightContent">
+        <a class="toggle-btn" id="nimei">
+            <i class="glyphicon glyphicon-align-justify"></i>
+        </a>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <#include "user/user.html">
+                <#include "dept/dept.html">
+        </div>
+    </div>
+
+</div>
+<!-- 弹出提示框 info，为传入的数据  cancel和submit采用回调对应父组件的方法 -->
+<div id="confirmModel">
+    <confirm :info="info" @cancel="cancel" @submit="submit"></confirm>
+</div>
+<!-- 通用信息提示框 -->
+<div id="confirmModel2">
+    <confirm2 :info="info" @cancel="cancel" @submit="submit"></confirm2>
+</div>
+
+<!-- 通用信息提示框 -->
+<div id="confirmModel3">
+    <confirm3 :info="info" @cancel="cancel" @submit="submit"></confirm3>
+</div>
+</body>
+<script src="res/commom/vue/vue.min.js"></script>
+<script src="res/commom/bootstrap3.3.7/js/bootstrap-table.min.js"></script>
+<script src="res/commom/bootstrap3.3.7/js/bootstrap-table-zh-CN.js"></script>
+<script src="res/commom/bootstrap3.3.7/js/bootstrap-treeview-dept.js"></script>
+<script src="res/commom/bootstrap3.3.7/js/bootstrapValidator.min.js"></script>
+<script src="res/commom/bootstrap3.3.7/js/bootstrap-select.min.js"></script>
+<script src="res/commom/bootstrap3.3.7/js/bootstrap-select-zh_CN.min.js"></script>
+<script src="res/commom/vue/components/confirm.js"></script>
+<script src="res/js/sys/main.js"></script>
+<script src="res/js/sys/user/user.js"></script>
+<script src="res/js/sys/dept/dept.js"></script>
+
+</html>
