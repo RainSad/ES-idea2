@@ -10,12 +10,12 @@ import com.sys.entity.param.DeptParam;
 import com.sys.entity.sys.SysDepartment;
 import com.sys.repository.sys.SysDepartmentRepositoryImp;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class SysDepartmentService {
     Logger log = Logger.getLogger(SysDepartmentService.class);
 
-    @Autowired
+    @Resource
     private SysDepartmentRepositoryImp sysDepartmentRepositoryImp;
 
 
@@ -37,7 +37,8 @@ public class SysDepartmentService {
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
             throw new ParamException("同一层级下存在相同的部门");
         }
-        SysDepartment dept = SysDepartment.builder().deptName(param.getName())
+        SysDepartment dept = SysDepartment.builder()
+                .deptName(param.getName())
                 .seq(param.getSeq())
                 .parentId(param.getParentId())
                 .remark(param.getRemark())

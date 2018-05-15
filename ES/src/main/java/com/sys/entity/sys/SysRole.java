@@ -1,11 +1,11 @@
 package com.sys.entity.sys;
 
 import java.util.Date;
+
+import lombok.Builder;
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
@@ -16,10 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name = "sys_role")
+@Builder
 public class SysRole {
 
     /***/
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", length = 32)
 	private String id;
 

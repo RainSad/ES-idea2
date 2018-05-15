@@ -1,35 +1,36 @@
 package com.sys.controller.sys;
 
-import com.sys.entity.param.AclParam;
+import com.sys.entity.param.RoleParam;
 import com.sys.entity.resdata.JsonData;
-import com.sys.service.sys.SysAclService;
-import org.apache.log4j.Logger;
+import com.sys.service.sys.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/sys/acl")
-public class SysAcl {
-
-    Logger log = Logger.getLogger(SysAcl.class);
+@RequestMapping("sys/role")
+public class SysRole {
 
     @Autowired
-    private SysAclService sysAclService;
+    private SysRoleService sysRoleService;
 
     @RequestMapping("save")
     @ResponseBody
-    public JsonData saveAclModule(AclParam param) {
-        sysAclService.save(param);
+    public JsonData saveAclModule(RoleParam param) {
+        sysRoleService.save(param);
         return JsonData.success();
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public JsonData updateAclModule(AclParam param) {
-        sysAclService.update(param);
+    public JsonData updateAclModule(RoleParam param) {
+        sysRoleService.update(param);
         return JsonData.success();
     }
 
+    @RequestMapping("list")
+    public JsonData List() {
+        return JsonData.success(sysRoleService.getAll());
+    }
 }

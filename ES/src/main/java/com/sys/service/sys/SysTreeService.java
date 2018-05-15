@@ -10,10 +10,10 @@ import com.sys.entity.sys.SysAclModule;
 import com.sys.entity.sys.SysDepartment;
 import com.sys.repository.sys.SysAclModuleRepositoryImp;
 import com.sys.repository.sys.SysDepartmentRepositoryImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -21,10 +21,10 @@ import java.util.List;
 @Service
 public class SysTreeService {
 
-    @Autowired
+    @Resource
     private SysDepartmentRepositoryImp sysDepartmentRepositoryImp;
 
-    @Autowired
+    @Resource
     private SysAclModuleRepositoryImp sysAclModuleRepositoryImp;
 
     /**

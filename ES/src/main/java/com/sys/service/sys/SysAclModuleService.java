@@ -9,28 +9,27 @@ import com.google.common.base.Preconditions;
 import com.sys.entity.param.AclModuleParam;
 import com.sys.entity.sys.SysAclModule;
 import com.sys.repository.sys.SysAclModuleRepositoryImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class SysAclModuleService {
 
-    @Autowired
+    @Resource
     SysAclModuleRepositoryImp sysAclModuleRepositoryImp;
 
     public void save(AclModuleParam param) {
         BeanValidator.check(param);
-        if (checkAclModuleNameExist(param.getParentId(), param.getName(), param.getId())) {
+        if (checkAclModuleNameExist(param.getParentId(), param.getName(), null)) {
             throw new ParamException("同一层级下存在相同的权限某块");
         }
         SysAclModule sysAclModule = SysAclModule.builder()
-                .id(param.getId())
                 .name(param.getName())
                 .parentId(param.getParentId())
                 .seq(param.getSeq())

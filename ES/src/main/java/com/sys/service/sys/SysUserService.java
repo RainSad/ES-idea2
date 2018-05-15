@@ -3,21 +3,19 @@ package com.sys.service.sys;
 import com.core.common.exception.ParamException;
 import com.core.common.utills.IpUtil;
 import com.core.common.utills.MD5Util;
-import com.core.common.utills.MailUtil;
 import com.core.common.utills.PassWordUtil;
 import com.core.common.webUtils.BeanValidator;
 import com.core.common.webUtils.RequestHolder;
 import com.google.common.base.Preconditions;
-import com.sys.entity.param.Mail;
 import com.sys.entity.param.UserParam;
 import com.sys.entity.sys.SysUser;
 import com.sys.repository.sys.SysUserRepositoryImp;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 @Service
@@ -25,7 +23,7 @@ public class SysUserService {
 
     Logger log = Logger.getLogger(SysUserService.class);
 
-    @Autowired
+    @Resource
     private SysUserRepositoryImp sysUserRepositoryImp;
 
     @Transactional
