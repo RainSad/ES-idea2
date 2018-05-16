@@ -3,6 +3,7 @@ package com.sys.entity.sys;
 import java.util.Date;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,10 +14,10 @@ import org.springframework.stereotype.Component;
  * sysAcl 实体类
  * Fri Dec 29 14:10:19 CST 2017 孙文祥
  */
-@Component
 @Entity
 @Table(name = "sys_acl")
 @Builder
+@EqualsAndHashCode(of = {"id"})
 public class SysAcl {
 
     /***/

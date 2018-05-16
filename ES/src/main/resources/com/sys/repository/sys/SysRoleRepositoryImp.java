@@ -10,6 +10,16 @@ import java.util.List;
 
 public interface SysRoleRepositoryImp extends Repository<SysRole,String>, CrudRepository<SysRole,String>{
 
+	@Query(value = "SELECT " +
+			"sys_role.* " +
+			"FROM " +
+			"sys_user " +
+			"INNER JOIN sys_user_role ON sys_user_role.user_id = sys_user.id " +
+			"INNER JOIN sys_role ON sys_user_role.role_id = sys_role.id " +
+			"WHERE " +
+			"sys_user.id = ?1", nativeQuery = true)
+	List<SysRole> findRoleCode(@Param("roleId") String roleId);
+
 	@Query(value = "SELECT COUNT(*) FROM sys_role WHERE role_name = :roleName AND id != :id", nativeQuery = true)
 	int checkRoleIsExist(@Param("roleName") String roleName, @Param("id") String id);
 

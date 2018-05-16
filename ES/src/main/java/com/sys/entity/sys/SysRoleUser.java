@@ -2,6 +2,7 @@ package com.sys.entity.sys;
 
 import java.util.Date;
 
+import lombok.Builder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name = "sys_role_user")
+@Builder
 public class SysRoleUser {
 
     /***/
