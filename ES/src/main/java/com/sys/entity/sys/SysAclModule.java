@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * sysAclModule 实体类
  * Fri Dec 29 14:11:10 CST 2017 孙文祥
  */
-@Component
 @Entity
 @Table(name = "sys_acl_module")
 @Builder

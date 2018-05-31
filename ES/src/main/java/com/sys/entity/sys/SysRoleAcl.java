@@ -2,12 +2,10 @@ package com.sys.entity.sys;
 
 import java.util.Date;
 
+import lombok.Builder;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
@@ -15,13 +13,14 @@ import org.springframework.stereotype.Component;
  * sysRoleAcl 实体类
  * Fri Dec 29 14:12:31 CST 2017 孙文祥
  */
-@Component
 @Entity
 @Table(name = "sys_role_acl")
+@Builder
 public class SysRoleAcl {
 
     /***/
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", length = 32)
     private String id;
 

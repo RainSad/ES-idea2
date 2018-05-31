@@ -1,5 +1,9 @@
 package com.core.common.utills;
 
+import com.google.common.base.Splitter;
+
+import java.util.List;
+
 /**
  * <pre>
  *     author: Blankj
@@ -186,5 +190,17 @@ public final class StringUtils {
             }
         }
         return new String(chars);
+    }
+
+    /**
+     * 分割字符串变成list数组
+     *
+     * @param str   待风格的字符串
+     * @param split 风格符 ，
+     * @return
+     */
+    public static List<String> spiltToListString(String str, String split) {
+        //1,2,3,4,, ;  => [1,2,3,4]
+        return Splitter.on(split).trimResults().omitEmptyStrings().splitToList(str);
     }
 }

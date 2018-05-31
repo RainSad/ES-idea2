@@ -2,21 +2,18 @@ package com.sys.entity.sys;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * sysDictionary 实体类 Mon Oct 09 16:32:00 CST 2017 孙文祥
  */
-@Component
 @Entity
 @Table(name = "sys_dictionary")
 public class SysDictionary {
 
 	/** 分享id */
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", length = 32)
 	private String id;
 

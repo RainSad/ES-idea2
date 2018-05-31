@@ -2,22 +2,19 @@ package com.sys.entity.sys;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * sysUserInfo 实体类 Mon Oct 09 16:32:00 CST 2017 孙文祥
  */
-@Component
 @Entity
 @Table(name = "sys_user_info")
 public class SysUserInfo {
 
 	/** 分享id */
 	@Id
-	@Column(name = "id", length = 32)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", length = 32)
 	private String id;
 
 	/** 昵称 */

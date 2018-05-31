@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * sysRole 实体类
  * Fri Dec 29 14:12:16 CST 2017 孙文祥
  */
-@Component
 @Entity
 @Table(name = "sys_role")
 @Builder

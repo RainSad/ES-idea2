@@ -10,7 +10,6 @@ import javax.persistence.Table;
 /**
  * sysArea 实体类 Mon Oct 09 16:32:00 CST 2017 孙文祥
  */
-@Component
 @Entity
 @Table(name = "sys_area")
 public class SysArea {
