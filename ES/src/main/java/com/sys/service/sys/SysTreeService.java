@@ -82,7 +82,7 @@ public class SysTreeService {
         List<AclModuleLevelDto> aclModuleLevelList = aclMuduleTree();
         Multimap<String, AclDto> moduleIdAclMap = ArrayListMultimap.create();
         for (AclDto acl : aclDtoList) {
-            if (acl.getStatus() == "1")
+            if (acl.getStatus().equals("1"))
                 moduleIdAclMap.put(acl.getAclModuleId(), acl);
         }
         bindAclsWithOrder(aclModuleLevelList, moduleIdAclMap);
