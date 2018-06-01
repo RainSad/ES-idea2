@@ -18,4 +18,10 @@ public interface SysAclModuleRepositoryImp extends Repository<SysAclModule, Stri
     @Query(value = "SELECT COUNT(*) FROM sys_acl_module WHERE name = :aclModuleName AND parent_id = :parentId", nativeQuery = true)
     int checkAclModuleNameIsExistWithBlankId(@Param("parentId") String parentId, @Param("aclModuleName") String aclModuleName);
 
+    /**
+     * 查询父节点下面是否有子节点
+     * @param parentId
+     * @return
+     */
+    int countByParentId(String parentId);
 }
