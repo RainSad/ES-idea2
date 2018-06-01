@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SysUserService {
@@ -154,6 +155,10 @@ public class SysUserService {
             return sysUserRepositoryImp.countByPhoneAndId(phone, userId.toString()) > 0;
         }
 
+    }
+
+    public Iterable<SysUser> getAll() {
+        return sysUserRepositoryImp.findAll();
     }
 
     /**
