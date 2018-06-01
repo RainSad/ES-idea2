@@ -20,4 +20,6 @@ public interface SysUserRepositoryImp extends Repository<SysUser,String>, CrudRe
 
     int countByPhoneAndId(String phone, String id);
 
+    int countByDeptId(String deptId);
+
 }

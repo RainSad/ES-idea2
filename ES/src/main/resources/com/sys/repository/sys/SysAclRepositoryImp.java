@@ -15,4 +15,12 @@ public interface SysAclRepositoryImp extends Repository<SysAcl, String>, CrudRep
 
     @Query(value = "SELECT COUNT(*) FROM sys_acl WHERE acl_module_id = :aclModuleId AND name = :name", nativeQuery = true)
     int checkAclNameIsExistWithBlankId(@Param("aclModuleId") String parentId, @Param("name") String name);
+
+    /**
+     * 查询权限模块下面是否有权限点
+     *
+     * @param aclModuleId
+     * @return
+     */
+    int countByAclModuleId(String aclModuleId);
 }

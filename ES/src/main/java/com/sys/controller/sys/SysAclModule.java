@@ -30,16 +30,23 @@ public class SysAclModule {
     @ResponseBody
     public JsonData saveAclModule(AclModuleParam param){
         sysAclModuleService.save(param);
-        log.info(JSON.toJSONString(param));
         return JsonData.success();
     }
 
     @RequestMapping("update")
     @ResponseBody
     public JsonData updateAclModule(AclModuleParam param){
-
+        sysAclModuleService.update(param);
         return JsonData.success();
     }
+
+    @RequestMapping("delete")
+    @ResponseBody
+    public JsonData deleteAclModule(String id) {
+        sysAclModuleService.delete(id);
+        return JsonData.success();
+    }
+
 
     @RequestMapping("/tree.json")
     @ResponseBody

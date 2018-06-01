@@ -52,7 +52,7 @@ public class SysCoreService {
         return sysAclRepositoryImp.findAll(aclIdList);
     }
 
-    private Iterable<SysAcl> getUserAclList(String userId) {
+    public Iterable<SysAcl> getUserAclList(String userId) {
         if (isSuperAdmin()) {
             return sysAclRepositoryImp.findAll();
         }

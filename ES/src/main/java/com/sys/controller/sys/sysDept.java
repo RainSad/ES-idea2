@@ -39,9 +39,8 @@ public class sysDept {
 
     @RequestMapping("/del")
     @ResponseBody
-    public JsonData delDept(String ids) throws IOException {
-        log.info(ids);
-        //sysDepartmentService.save(deptParam);
+    public JsonData delDept(String id) throws IOException {
+        sysDepartmentService.delete(id);
         return JsonData.success();
     }
 

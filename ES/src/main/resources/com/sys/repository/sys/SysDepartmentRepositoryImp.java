@@ -18,4 +18,10 @@ public interface SysDepartmentRepositoryImp extends Repository<SysDepartment, St
     @Query(value = "SELECT COUNT(*) FROM sys_department WHERE dept_name = :deptName AND parent_id = :parentId", nativeQuery = true)
     int checkDeptIsExistWithBlankId(@Param("parentId") String parentId, @Param("deptName") String deptName);
 
+    /**
+     * 检查子部门个数
+     *
+     * @return
+     */
+    int countByParentId(String parentId);
 }

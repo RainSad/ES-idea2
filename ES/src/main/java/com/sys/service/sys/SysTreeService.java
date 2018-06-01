@@ -35,6 +35,28 @@ public class SysTreeService {
     @Resource
     private SysAclRepositoryImp sysAclRepositoryImp;
 
+
+    /**
+     * 获取特定用户的权限列表树
+     *
+     * @param userId
+     * @return
+     */
+    public List<AclModuleLevelDto> userTree(String userId) {
+        //当前用户已分配的权限点
+        Iterable<SysAcl> userAclList = sysCoreService.getUserAclList(userId);
+        List<AclDto> aclDtoList = Lists.newArrayList();
+
+        for (SysAcl sysAcl : userAclList) {
+            AclDto aclDto = AclDto.adapt(sysAcl);
+            aclDto.setChecked(true);
+            aclDto.setHasAcl(true);
+            aclDtoList.add(aclDto);
+        }
+        return aclListToTree(aclDtoList);
+    }
+
+
     /**
      * 得到角色权限树
      *

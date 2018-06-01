@@ -122,12 +122,15 @@ public class SysRole {
         Set<String> selectedUserIdSet = selectedUserList.stream().map(sysUser -> sysUser.getId()).collect(Collectors.toSet());
         allUsersList.forEach(sysUser -> {
             if (sysUser.getStatus().equals("1") && !selectedUserIdSet.contains(sysUser.getId())) {
+                sysUser.setPassword("");
                 unselectedUserList.add(sysUser);
             }
         });
 
         //过滤操作，不显示状态时不为1的用户
         //selectedUserList.stream().filter(SysUser -> !SysUser.getStatus().equals("1")).collect(Collectors.toList());
+        //设置用户密码未空串
+        selectedUserList.forEach(a -> a.setPassword(""));
         Map<String, List<SysUser>> map = Maps.newHashMap();
         map.put("selected", selectedUserList);
         map.put("unselected", unselectedUserList);

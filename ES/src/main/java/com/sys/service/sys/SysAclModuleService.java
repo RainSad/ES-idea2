@@ -9,6 +9,7 @@ import com.google.common.base.Preconditions;
 import com.sys.entity.param.AclModuleParam;
 import com.sys.entity.sys.SysAclModule;
 import com.sys.repository.sys.SysAclModuleRepositoryImp;
+import com.sys.repository.sys.SysAclRepositoryImp;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -22,7 +23,11 @@ import java.util.List;
 public class SysAclModuleService {
 
     @Resource
-    SysAclModuleRepositoryImp sysAclModuleRepositoryImp;
+    private SysAclModuleRepositoryImp sysAclModuleRepositoryImp;
+
+    @Resource
+    private SysAclRepositoryImp sysAclRepositoryImp;
+
 
     public void save(AclModuleParam param) {
         BeanValidator.check(param);
@@ -85,6 +90,24 @@ public class SysAclModuleService {
         }
         sysAclModuleRepositoryImp.save(after);
     }
+
+    /**
+     * 删除权限模块
+     *
+     * @param id
+     */
+    public void delete(String id) {
+        SysAclModule sysAclModule = sysAclModuleRepositoryImp.findOne(id);
+        Preconditions.checkNotNull(sysAclModule, "待删除的权限模块不存在，无法删除");
+        if (sysAclModuleRepositoryImp.countByParentId(id) > 0) {
+            throw new ParamException("当前模块下面有子模块！无法删除！");
+        }
+        if (sysAclRepositoryImp.countByAclModuleId(id) > 0) {
+            throw new ParamException("当前权限模块下面有权限点，无法删除！");
+        }
+        sysAclModuleRepositoryImp.delete(id);
+    }
+
 
     private boolean checkAclModuleNameExist(String parentId, String aclModuleName, String aclModuleId) {
         return StringUtils.isEmpty(aclModuleId) ? sysAclModuleRepositoryImp.checkAclModuleNameIsExistWithBlankId(parentId, aclModuleName) > 0 : sysAclModuleRepositoryImp.checkAclModuleNameIsExist(parentId, aclModuleName, aclModuleId) > 0;

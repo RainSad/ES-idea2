@@ -9,6 +9,7 @@ import com.google.common.base.Preconditions;
 import com.sys.entity.param.DeptParam;
 import com.sys.entity.sys.SysDepartment;
 import com.sys.repository.sys.SysDepartmentRepositoryImp;
+import com.sys.repository.sys.SysUserRepositoryImp;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +27,14 @@ public class SysDepartmentService {
     @Resource
     private SysDepartmentRepositoryImp sysDepartmentRepositoryImp;
 
+    @Resource
+    private SysUserRepositoryImp sysUserRepositoryImp;
 
-    public void del(DeptParam param) {
-        BeanValidator.check(param);
-
-    }
-
+    /**
+     * 添加部门
+     *
+     * @param param
+     */
     public void save(DeptParam param) {
         BeanValidator.check(param);
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
@@ -55,6 +58,10 @@ public class SysDepartmentService {
         sysDepartmentRepositoryImp.save(dept);
     }
 
+    /**
+     * 更新部门
+     * @param param
+     */
     public void update(DeptParam param) {
         BeanValidator.check(param);
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
@@ -100,6 +107,22 @@ public class SysDepartmentService {
         sysDepartmentRepositoryImp.save(after);
     }
 
+    /**
+     * 删除部门
+     *
+     * @param deptId
+     */
+    public void delete(String deptId) {
+        SysDepartment dept = sysDepartmentRepositoryImp.findOne(deptId);
+        Preconditions.checkNotNull(dept, "待删除的部门不存在！无法删除！");
+        if (sysDepartmentRepositoryImp.countByParentId(dept.getId()) > 0) {
+            throw new ParamException("当前部门下面存在子部门，无法删除！");
+        }
+        if (sysUserRepositoryImp.countByDeptId(dept.getId()) > 0) {
+            throw new ParamException("当前部门下面有用户，无法删除！");
+        }
+        sysDepartmentRepositoryImp.delete(deptId);
+    }
 
     public boolean checkExist(String parentId, String deptName, String deptId) {
 

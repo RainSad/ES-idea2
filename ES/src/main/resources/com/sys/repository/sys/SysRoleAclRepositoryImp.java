@@ -34,4 +34,13 @@ public interface SysRoleAclRepositoryImp extends Repository<SysRoleAcl, String>,
      */
     void deleteByRoleId(String roleId);
 
+    /**
+     * 根据权限点id查询拥有该权限的角色
+     *
+     * @param aclId
+     * @return
+     */
+    @Query(value = "select role_id from sys_role_acl where acl_id = :aclId", nativeQuery = true)
+    List<String> getRoleIdsByAclId(@Param("aclId") String aclId);
+
 }
