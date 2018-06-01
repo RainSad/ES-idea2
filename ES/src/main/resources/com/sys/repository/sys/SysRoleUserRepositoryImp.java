@@ -37,6 +37,12 @@ public interface SysRoleUserRepositoryImp extends Repository<SysRoleUser, String
     @Query(value = "select user_id from sys_role_user where role_id = :roleId", nativeQuery = true)
     List<String> getUserIdListByRoleId(@Param("roleId") String roleId);
 
+    /**
+     * 根据角色id删除关联关系表数据
+     *
+     * @param roleId
+     */
+    void deleteByRoleId(String roleId);
 
 }
 

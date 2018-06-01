@@ -87,6 +87,27 @@ public class SysRole {
         return JsonData.success();
     }
 
+    /**
+     * 修改保存分配的权限点
+     *
+     * @param roleId
+     * @return
+     */
+    @RequestMapping("changeUsers.json")
+    @ResponseBody
+    public JsonData changeUsers(@RequestParam("roleId") String roleId, @RequestParam(value = "userIds", required = false, defaultValue = "") String userIds) {
+        List<String> userIdsList = StringUtils.spiltToListString(userIds, ",");
+        sysRoleUserService.changeRoleUsers(roleId, userIdsList);
+        return JsonData.success();
+    }
+
+
+    /**
+     * 获取用户数据，选中和未选中的用户
+     *
+     * @param roleId
+     * @return
+     */
     @RequestMapping("users.json")
     @ResponseBody
     public JsonData users(@RequestParam("roleId") String roleId) {
